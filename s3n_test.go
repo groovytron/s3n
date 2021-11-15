@@ -69,5 +69,75 @@ func TestIsValidWithoutDotted(t *testing.T) {
 	number := "7569217076985"
 	valid := IsValid(number)
 
+	assert.True(t, dottedValid)
+	assert.True(t, valid)
 	assert.Equal(t, dottedValid, valid, "Number should be valid with or without dots")
+}
+
+func TestDottedFormat(t *testing.T) {
+	dotted := "756.9217.0769.85"
+	number := "7569217076985"
+
+	left, err := DottedFormat(dotted)
+
+	assert.NoError(t, err)
+
+	right, err := DottedFormat(number)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, dotted, left)
+	assert.Equal(t, dotted, right)
+	assert.Equal(t, left, right)
+}
+
+func TestInvalidDottedFormat(t *testing.T) {
+	result, err := DottedFormat("756.9217.0769.83")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
+
+	result, err = DottedFormat("718.9217.0769.83")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
+
+	result, err = DottedFormat("756.9217asf.a")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
+}
+
+func TestDotlessFormat(t *testing.T) {
+	dotted := "756.9217.0769.85"
+	number := "7569217076985"
+
+	left, err := DotlessFormat(dotted)
+
+	assert.NoError(t, err)
+
+	right, err := DotlessFormat(number)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, number, left)
+	assert.Equal(t, number, right)
+	assert.Equal(t, left, right)
+}
+
+func TestInvalidDotlessFormat(t *testing.T) {
+	result, err := DotlessFormat("756.9217.0769.83")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
+
+	result, err = DotlessFormat("718.9217.0769.83")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
+
+	result, err = DotlessFormat("756.9217asf.a")
+
+	assert.Equal(t, "", result)
+	assert.Error(t, err)
 }
