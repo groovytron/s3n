@@ -4,6 +4,7 @@ package s3n
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 	"unicode/utf8"
@@ -42,19 +43,15 @@ func checksum(digits []int) int {
 
 	for index, value := range digits {
 		if index%2 != 0 {
-			sum += 3 * value
+			sum += 13 * value
 		} else {
 			sum += value
 		}
 	}
 
-	rest := sum % 10
+	nextTimesTen := math.Ceil(float64(sum)/10.00) * 10
 
-	if rest != 0 {
-		rest = 10 - rest
-	}
-
-	return rest
+	return int(nextTimesTen) - sum
 }
 
 // Validates a given social security number. The numbers can be dotted or not.

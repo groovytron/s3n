@@ -29,7 +29,7 @@ func TestCheckSum(t *testing.T) {
 	want := 7
 	result := checksum(digits)
 
-	assert.Equal(t, result, want, "Checksum should be computed correctly")
+	assert.Equal(t, want, result, "Checksum should be computed correctly")
 
 	// 756.1234.5678.97
 	number = "756.1234.5678.9"
@@ -37,7 +37,7 @@ func TestCheckSum(t *testing.T) {
 	want = 7
 	result = checksum(digits)
 
-	assert.Equal(t, result, want, "Checksum should be computed correctly")
+	assert.Equal(t, want, result, "Checksum should be computed correctly")
 
 	// 756.3047.5009.62
 	number = "756.3047.5009.6"
@@ -45,7 +45,7 @@ func TestCheckSum(t *testing.T) {
 	want = 2
 	result = checksum(digits)
 
-	assert.Equal(t, result, want, "Checksum should be computed correctly")
+	assert.Equal(t, want, result, "Checksum should be computed correctly")
 }
 
 func TestCheckValidity(t *testing.T) {
@@ -86,25 +86,25 @@ func TestDottedFormat(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	assert.Equal(t, dotted, left)
-	assert.Equal(t, dotted, right)
+	assert.Equal(t, left, dotted)
+	assert.Equal(t, right, dotted)
 	assert.Equal(t, left, right)
 }
 
 func TestInvalidDottedFormat(t *testing.T) {
 	result, err := DottedFormat("756.9217.0769.83")
 
-	assert.Equal(t, "", result)
+	assert.Equal(t, result, "")
 	assert.Error(t, err)
 
 	result, err = DottedFormat("718.9217.0769.83")
 
-	assert.Equal(t, "", result)
+	assert.Equal(t, result, "")
 	assert.Error(t, err)
 
 	result, err = DottedFormat("756.9217asf.a")
 
-	assert.Equal(t, "", result)
+	assert.Equal(t, result, "")
 	assert.Error(t, err)
 }
 
@@ -120,8 +120,8 @@ func TestDotlessFormat(t *testing.T) {
 
 	assert.NoError(t, err)
 
-	assert.Equal(t, number, left)
-	assert.Equal(t, number, right)
+	assert.Equal(t, left, number)
+	assert.Equal(t, right, number)
 	assert.Equal(t, left, right)
 }
 
